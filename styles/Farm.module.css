@@ -1,0 +1,4 @@
+.farmItem {
+  max-width: 500px;
+  @apply rounded;
+}

@@ -1,16 +1,106 @@
-html,
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  line-height: 1.5;
+  font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  @apply antialiased bg-gray-800 text-gray-100;
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+  @apply no-underline text-inherit;
 }
 
-* {
-  box-sizing: border-box;
+*,
+*:before,
+*:after {
+  @apply box-border;
+}
+
+img {
+  @apply block max-w-full;
+}
+
+ul {
+  @apply list-none;
+}
+
+/* Global CSS */
+
+/* 1. Input */
+.input-control {
+  @apply relative mt-4;
+}
+
+.input-control label {
+  @apply text-sm font-medium text-gray-400 mb-1 block;
+}
+
+.input-control input {
+  @apply block w-full px-4 py-2 rounded bg-gray-700 leading-tight text-white font-medium border-2 border-transparent;
+}
+
+.input-control input:focus {
+  @apply outline-none border-gray-500;
+}
+
+/* 2. Button */
+.btn {
+  @apply border border-transparent font-semibold px-6 py-1.5 inline-block rounded text-white;
+}
+
+.btn:disabled {
+  @apply cursor-wait;
+}
+
+.btn,
+.btn:hover,
+.btn:focus,
+.btn:disabled {
+  @apply transition duration-300;
+}
+
+.btn-primary {
+  @apply bg-blue-500;
+}
+
+.btn-primary:hover {
+  @apply bg-blue-600;
+}
+
+.btn-primary:disabled {
+  @apply bg-blue-400;
+}
+
+.btn-primary:disabled:hover {
+  @apply bg-blue-400;
+}
+
+.btn.is-loading svg {
+  @apply inline-block;
+}
+
+/* 3. Alerts */
+.alert {
+  @apply relative px-4 py-2 font-medium text-sm bg-opacity-50;
+}
+
+.alert-danger {
+  @apply text-red-200 bg-red-900;
+}
+
+.alert-success {
+  @apply text-emerald-400 bg-emerald-900;
+}
+
+/* 4. Link */
+.link {
+  @apply text-blue-400 cursor-pointer;
+}
+
+.link:hover {
+  @apply underline;
 }

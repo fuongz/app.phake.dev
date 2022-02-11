@@ -1,0 +1,150 @@
+.app-header {
+  @apply px-8 fixed w-full top-0 z-10 bg-gray-800;
+}
+
+.app-header-actions {
+  display: flex;
+  align-items: center;
+}
+
+.app-header-actions-buttons {
+  display: flex;
+  margin-left: 2rem;
+  padding-left: 2rem;
+  @apply border-l border-gray-600;
+}
+
+.app-header-actions-buttons * + * {
+  margin-left: 1rem;
+}
+
+.app-header-mobile {
+  display: none;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.logo-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  margin-left: 0.75rem;
+}
+
+.tabs {
+  @apply text-gray-500 border-b border-gray-600 flex gap-12 w-full;
+}
+.tabs .tab-link {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-decoration: none;
+  display: inline-flex;
+  transition: 0.25s ease;
+  @apply border-b-2 border-transparent;
+}
+.tabs .tab-link--active,
+.tabs .tab-link:hover,
+.tabs .tab-link:focus {
+  @apply text-gray-100 border-gray-100;
+}
+
+.app-header-actions {
+  @apply ml-auto;
+}
+
+/* User profile */
+.app-header-user {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.25s ease;
+  @apply text-gray-500;
+}
+.app-header-user:hover,
+.app-header-user:focus {
+  @apply text-gray-100;
+}
+.app-header-user span:first-child {
+  display: flex;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-weight: 300;
+}
+.app-header-user span:last-child {
+  transition: 0.25s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 1.5rem;
+  flex-shrink: 0;
+}
+
+.app-body {
+  height: 100%;
+  display: grid;
+  padding-top: 2.5rem;
+  margin-top: 65px;
+  @apply px-8;
+}
+
+.app-body-navigation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 1200px) {
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @apply border border-gray-600;
+  }
+
+  .app-header-navigation {
+    display: none;
+  }
+
+  .app-header-actions {
+    display: none;
+  }
+
+  .app-header-mobile {
+    display: flex;
+  }
+
+  .logo {
+    border-bottom: 0;
+  }
+
+  .app-body {
+    grid-template-columns: 1fr;
+  }
+
+  .app-body > * {
+    margin-bottom: 3.5rem;
+  }
+
+  .app-body-navigation {
+    display: none;
+  }
+}
