@@ -64,18 +64,27 @@ const SignInPage: NextPage = () => {
   };
 
   return (
-    <div className={"h-screen flex justify-center items-center"}>
-      <div className={"max-w-sm mx-auto rounded"}>
-        <h1 className={`text-3xl font-bold mb-4 text-center`}>
-          Welcome to FinPhake
+    <div className={"flex pt-44 justify-center items-center"}>
+      <div className={"max-w-sm mx-auto rounded-lg"}>
+        <h1 className={`text-3xl font-light mb-2 text-center text-gray-200`}>
+          Welcome to <span className={`font-semibold `}>Fin</span> Phake
         </h1>
 
+        <p className={`mb-6 text-sm text-center text-gray-300`}>
+          Don&apos;t have an account?{" "}
+          <Link href="/auth/signup">
+            <a className="link">Sign up for free</a>
+          </Link>
+        </p>
+
         {errors ? (
-          <p className={"alert alert-danger py-4 rounded"}>{errors}</p>
+          <p className={"alert alert-danger py-4 rounded-lg mb-4"}>{errors}</p>
         ) : null}
 
         {message ? (
-          <p className={"alert alert-success py-4 rounded"}>{message}</p>
+          <p className={"alert alert-success py-4 rounded-lg mb-4"}>
+            {message}
+          </p>
         ) : null}
 
         <button

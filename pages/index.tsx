@@ -74,7 +74,7 @@ const Home: NextPage = () => {
 
       {errors ? <p className={"alert alert-danger"}>{errors}</p> : null}
 
-      <section style={{ height: "5000px" }}>
+      <section>
         <h3 className={`font-medium text-2xl`}>Service</h3>
         <div className={styles["tiles"]}>
           {services.map((service) => (

@@ -40,16 +40,28 @@ ul {
 }
 
 .input-control input {
-  @apply block w-full px-4 py-2 rounded bg-gray-700 leading-tight text-white font-medium border-2 border-transparent;
+  @apply block w-full px-4 py-2 rounded-lg bg-gray-700 leading-tight text-white font-medium border-2 border-transparent;
 }
 
 .input-control input:focus {
   @apply outline-none border-gray-500;
 }
 
+.input-control--checkbox {
+  @apply inline-flex gap-3 items-center justify-start;
+}
+
+.input-control--checkbox input {
+  @apply w-auto;
+}
+
+.input-control--checkbox label {
+  @apply mb-0 select-none;
+}
+
 /* 2. Button */
 .btn {
-  @apply border border-transparent font-semibold px-6 py-1.5 inline-block rounded text-white;
+  @apply border border-transparent font-semibold px-6 py-1.5 inline-block rounded-lg text-white;
 }
 
 .btn:disabled {

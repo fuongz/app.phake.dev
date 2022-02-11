@@ -7,6 +7,7 @@ import styles from "../styles/Layout.module.css";
 const Layout = ({ children }: any) => {
   const router = useRouter();
   const { user, signOut } = useUser();
+
   const navs = [
     {
       to: "/",
@@ -56,7 +57,15 @@ const Layout = ({ children }: any) => {
               {user ? (
                 <>
                   <button className={styles["app-header-user"]}>
-                    <span>{user.email}</span>
+                    <span
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        signOut();
+                      }}
+                    >
+                      Signout
+                    </span>
                     <span>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src="/icons/almeria-avatar.webp" alt="" />
