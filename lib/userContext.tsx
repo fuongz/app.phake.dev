@@ -1,4 +1,9 @@
-import { AuthSession, SupabaseClient, User } from "@supabase/supabase-js";
+import {
+  AuthChangeEvent,
+  AuthSession,
+  SupabaseClient,
+  User,
+} from "@supabase/supabase-js";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -14,6 +19,18 @@ const UserContext = createContext<UserContextType>({
   signOut: () => {},
 });
 
+const updateSupabaseCookie = async (
+  event: AuthChangeEvent,
+  session: AuthSession | null
+) => {
+  await fetch("/api/auth", {
+    method: "POST",
+    headers: new Headers({ "Content-Type": "application/json" }),
+    credentials: "same-origin",
+    body: JSON.stringify({ event, session }),
+  });
+};
+
 export const UserContextProvider = (props: any) => {
   const supabaseClient: SupabaseClient = props.supabaseClient;
   const [session, setSession] = useState<AuthSession | null>(null);
@@ -26,12 +43,19 @@ export const UserContextProvider = (props: any) => {
     setUser(session?.user || null);
 
     const { data: authListener } = supabaseClient.auth.onAuthStateChange(
-      (_event: any, session: AuthSession | null) => {
+      async (_event: any, session: AuthSession | null) => {
         setSession(session);
         setUser(session?.user || null);
+        await updateSupabaseCookie(_event, session);
+
+        console.log(_event);
 
         if (_event === "PASSWORD_RECOVERY") {
           router.push("/auth/recover-password");
+        }
+
+        if (_event === "SIGNED_OUT") {
+          router.push("/auth/signin");
         }
       }
     );

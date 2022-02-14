@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import enforceAuthenticated from "../../lib/enforcedAuthenticated";
 import styles from "../../styles/Farm.module.css";
 
 const FarmHome: NextPage = () => {
@@ -83,3 +84,4 @@ const FarmHome: NextPage = () => {
 };
 
 export default FarmHome;
+export const getServerSideProps = enforceAuthenticated();

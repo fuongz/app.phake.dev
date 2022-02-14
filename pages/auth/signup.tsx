@@ -2,21 +2,63 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+import { supabase } from "../../lib/supabase";
+import { useRouter } from "next/router";
+
+const schema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Confirm password must match")
+    .required(),
+  firstName: yup.string().required(),
+  lastName: yup.string().required(),
+  acceptTermService: yup.boolean().isTrue().required(),
+});
 
 const SignupPage: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);
-  const [errors, setErrors] = useState<string>("");
+  const [pageErrors, setErrors] = useState<string>("");
   const [message, setMessage] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
-  const [firstName, setFirstName] = useState<string>("");
-  const [lastName, setLastName] = useState<string>("");
-  const [acceptTermService, setAcceptTermService] = useState<boolean>(false);
+  const router = useRouter();
 
-  const handleSignup = async () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const handleSignup = async (data: any) => {
     try {
       setLoading(true);
+      const { user, error } = await supabase.auth.signUp(
+        {
+          email: data.email,
+          password: data.password,
+        },
+        {
+          data: {
+            firstName: data.firstName,
+            lastName: data.lastName,
+          },
+        }
+      );
+
+      if (error || !user) {
+        throw error || new Error("An error occurred. Please try again.");
+      }
+
+      setErrors("");
+      setMessage("Signed up successfully. Please check your email to verify.");
+      setTimeout((): void => {
+        router.push("/auth/signin");
+      }, 3000);
     } catch (err: any) {
       setErrors(err.message);
       setMessage("");
@@ -46,9 +88,9 @@ const SignupPage: NextPage = () => {
             </Link>
           </p>
 
-          {errors ? (
+          {pageErrors ? (
             <p className={"alert alert-danger py-4 rounded-lg mb-4"}>
-              {errors}
+              {pageErrors}
             </p>
           ) : null}
 
@@ -58,69 +100,105 @@ const SignupPage: NextPage = () => {
             </p>
           ) : null}
 
-          <div className="border-t border-gray-700 mt-6">
+          <form
+            className="border-t border-gray-700 mt-6"
+            onSubmit={handleSubmit(handleSignup)}
+          >
             <div className="grid grid-cols-2 gap-4">
-              <div className={"input-control"}>
+              <div
+                className={`input-control ${
+                  errors.firstName?.type && "input-control--errors"
+                }`}
+              >
                 <label htmlFor="firstName">First name</label>
                 <input
                   id="firstName"
                   placeholder="Last name"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  {...register("firstName")}
                 />
+                {errors.firstName?.type && (
+                  <p className="input-feedback">{errors.firstName?.message}</p>
+                )}
               </div>
-              <div className={"input-control"}>
+              <div
+                className={`input-control ${
+                  errors.lastName?.type && "input-control--errors"
+                }`}
+              >
                 <label htmlFor="lastName">Last name</label>
                 <input
                   id="lastName"
                   placeholder="Last name"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
+                  {...register("lastName")}
                 />
+                {errors.lastName?.type && (
+                  <p className="input-feedback">{errors.lastName?.message}</p>
+                )}
               </div>
             </div>
 
-            <div className={"input-control"}>
+            <div
+              className={`input-control ${
+                errors.email?.type && "input-control--errors"
+              }`}
+            >
               <label htmlFor="email">Email</label>
               <input
                 id="email"
                 type="email"
                 placeholder="Email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
               />
+              {errors.email?.type && (
+                <p className="input-feedback">{errors.email?.message}</p>
+              )}
             </div>
 
-            <div className={"input-control"}>
+            <div
+              className={`input-control ${
+                errors.password?.type && "input-control--errors"
+              }`}
+            >
               <label htmlFor="password">Password</label>
               <input
                 id="password"
                 type="password"
                 placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                {...register("password")}
               />
+              {errors.password?.type && (
+                <p className="input-feedback">{errors.password?.message}</p>
+              )}
             </div>
 
-            <div className={"input-control"}>
+            <div
+              className={`input-control ${
+                errors.passwordConfirmation?.type && "input-control--errors"
+              }`}
+            >
               <label htmlFor="confirmPassword">Confirm password</label>
               <input
                 id="confirmPassword"
                 type="password"
                 placeholder="Confirm password"
-                value={passwordConfirmation}
-                onChange={(e) => setPasswordConfirmation(e.target.value)}
+                {...register("passwordConfirmation")}
               />
+              {errors.passwordConfirmation?.type && (
+                <p className="input-feedback">
+                  {errors.passwordConfirmation?.message}
+                </p>
+              )}
             </div>
 
-            <div className={"input-control input-control--checkbox"}>
+            <div
+              className={`input-control input-control--checkbox ${
+                errors.acceptTermService?.type && "input-control--errors"
+              }`}
+            >
               <input
                 id="acceptTermService"
                 type="checkbox"
-                checked={acceptTermService}
-                onChange={(e) => {
-                  setAcceptTermService(e.target.checked);
-                }}
+                {...register("acceptTermService")}
               />
 
               <label htmlFor="acceptTermService">
@@ -131,11 +209,7 @@ const SignupPage: NextPage = () => {
             <div className="flex items-center mt-4">
               <button
                 className={`btn btn-primary ${loading ? "is-loading" : ""}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleSignup();
-                }}
+                type="submit"
                 disabled={loading}
               >
                 {loading ? (
@@ -167,7 +241,7 @@ const SignupPage: NextPage = () => {
                 )}
               </button>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </>

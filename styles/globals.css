@@ -47,6 +47,30 @@ ul {
   @apply outline-none border-gray-500;
 }
 
+.input-control .input-feedback {
+  @apply text-xs mt-1 text-gray-500;
+}
+
+.input-control .input-feedback:first-letter {
+  @apply capitalize;
+}
+
+.input-control--errors label {
+  @apply text-red-500;
+}
+
+.input-control--errors input {
+  @apply text-red-500 border-red-500;
+}
+
+.input-control--errors input::placeholder {
+  @apply text-red-500;
+}
+
+.input-control--errors .input-feedback {
+  @apply text-red-500;
+}
+
 .input-control--checkbox {
   @apply inline-flex gap-3 items-center justify-start;
 }

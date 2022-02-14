@@ -1,11 +1,19 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import { Provider } from "@supabase/supabase-js";
 import type { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase";
 import { useUser } from "../../lib/userContext";
+import * as yup from "yup";
+
+const signInSchema = yup.object({
+  email: yup.string().email().required(),
+  password: yup.string().required(),
+});
 
 const SignInPage: NextPage = () => {
   const router = useRouter();
@@ -18,18 +26,23 @@ const SignInPage: NextPage = () => {
   }, [router, user]);
 
   const [loading, setLoading] = useState<boolean>(false);
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [errors, setErrors] = useState<string>("");
+  const [pageErrors, setErrors] = useState<string>("");
   const [message, setMessage] = useState<string>("");
   const [loginType, setLoginType] = useState<string>("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(signInSchema),
+  });
 
-  const handleLogin = async () => {
+  const handleLogin = async (data: any) => {
     try {
       setLoading(true);
-      const { user, session, error } = await supabase.auth.signIn({
-        email,
-        password,
+      const { error } = await supabase.auth.signIn({
+        email: data.email,
+        password: data.password,
       });
       if (error) {
         throw error || new Error("An error occurred. Please try again.");
@@ -77,8 +90,10 @@ const SignInPage: NextPage = () => {
           </Link>
         </p>
 
-        {errors ? (
-          <p className={"alert alert-danger py-4 rounded-lg mb-4"}>{errors}</p>
+        {pageErrors ? (
+          <p className={"alert alert-danger py-4 rounded-lg mb-4"}>
+            {pageErrors}
+          </p>
         ) : null}
 
         {message ? (
@@ -138,78 +153,88 @@ const SignInPage: NextPage = () => {
         </button>
 
         {loginType === "email" ? (
-          <div className="border-t border-gray-700 mt-6">
-            <div className={"input-control"}>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-
-            <div className={"input-control"}>
-              <label htmlFor="password">Password</label>
-              <input
-                id="password"
-                type="password"
-                placeholder="Your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter") {
-                    handleLogin();
-                  }
-                }}
-              />
-            </div>
-
-            <div className="flex items-center mt-4">
-              <button
-                className={`btn btn-primary ${loading ? "is-loading" : ""}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                  handleLogin();
-                }}
-                disabled={loading}
+          <form onSubmit={handleSubmit(handleLogin)}>
+            <div className="border-t border-gray-700 mt-6">
+              <div
+                className={`input-control ${
+                  errors.email?.type && "input-control--errors"
+                }`}
               >
-                {loading ? (
-                  <>
-                    <svg
-                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      />
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                      />
-                    </svg>
-                    Signing in...
-                  </>
-                ) : (
-                  "Sign in"
+                <label htmlFor="email">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="Your email address"
+                  {...register("email")}
+                />
+                {errors.email?.type && (
+                  <p className="input-feedback">{errors.email?.message}</p>
                 )}
-              </button>
+              </div>
 
-              <Link href="/auth/reset-password">
-                <a className="ml-auto link">Forgot password?</a>
-              </Link>
+              <div
+                className={`input-control ${
+                  errors.password?.type && "input-control--errors"
+                }`}
+              >
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  type="password"
+                  placeholder="Your password"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                      handleSubmit(handleLogin);
+                    }
+                  }}
+                  {...register("password")}
+                />
+                {errors.password?.type && (
+                  <p className="input-feedback">{errors.password?.message}</p>
+                )}
+              </div>
+
+              <div className="flex items-center mt-4">
+                <button
+                  className={`btn btn-primary ${loading ? "is-loading" : ""}`}
+                  type="submit"
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        />
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        />
+                      </svg>
+                      Signing in...
+                    </>
+                  ) : (
+                    "Sign in"
+                  )}
+                </button>
+
+                <Link href="/auth/reset-password">
+                  <a className="ml-auto link">Forgot password?</a>
+                </Link>
+              </div>
             </div>
-          </div>
+          </form>
         ) : (
           <p
             className={"link text-sm mt-2 text-center font-medium"}

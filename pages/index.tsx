@@ -1,25 +1,11 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { useUser } from "../lib/userContext";
 import styles from "../styles/Home.module.css";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-
-const fetcher = (url: string, token: string) =>
-  fetch(url, {
-    method: "GET",
-    headers: new Headers({ "Content-Type": "application/json", token }),
-    credentials: "same-origin",
-  }).then((res: Response) => res.json());
+import enforceAuthenticated from "../lib/enforcedAuthenticated";
 
 const Home: NextPage = () => {
-  const [errors, setErrors] = useState<string>("");
-  const { user, session } = useUser();
-  const router = useRouter();
-
   const numberFormat = (num: number, currency = "USD") =>
     new Intl.NumberFormat("en-US", {
       style: "currency",
@@ -60,19 +46,11 @@ const Home: NextPage = () => {
     },
   ];
 
-  useEffect(() => {
-    if (!session) {
-      router.push("/auth/signin");
-    }
-  });
-
   return (
     <>
       <Head>
         <title>Home</title>
       </Head>
-
-      {errors ? <p className={"alert alert-danger"}>{errors}</p> : null}
 
       <section>
         <h3 className={`font-medium text-2xl`}>Service</h3>
@@ -106,4 +84,5 @@ const Home: NextPage = () => {
   );
 };
 
+export const getServerSideProps = enforceAuthenticated();
 export default Home;

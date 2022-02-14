@@ -64,7 +64,8 @@ const Layout = ({ children }: any) => {
                         signOut();
                       }}
                     >
-                      Signout
+                      {user.user_metadata.name ||
+                        `${user.user_metadata.firstName} ${user.user_metadata.lastName}`}
                     </span>
                     <span>
                       {/* eslint-disable-next-line @next/next/no-img-element */}

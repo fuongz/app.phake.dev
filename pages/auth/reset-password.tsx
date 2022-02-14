@@ -38,7 +38,7 @@ const ResetPasswordPage: NextPage = () => {
   };
 
   return (
-    <div className={"max-w-sm mx-auto rounded pt-20"}>
+    <div className={"w-80 mx-auto rounded pt-20"}>
       <h3 className="font-semibold text-xl block mb-4">Forgot password</h3>
 
       {errors ? (
@@ -57,6 +57,11 @@ const ResetPasswordPage: NextPage = () => {
           placeholder="Your email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSubmit();
+            }
+          }}
         />
       </div>
 
