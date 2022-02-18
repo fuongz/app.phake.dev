@@ -1,0 +1,4 @@
+.messages-container {
+  @apply overflow-hidden overflow-y-auto relative p-4 border-l border-r border-t rounded-t-md border-gray-700;
+  height: calc(100vh - 265px);
+}

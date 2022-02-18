@@ -15,7 +15,7 @@ const Layout = ({ children }: any) => {
     },
     {
       to: "/farm",
-      label: "Farming",
+      label: "Farm",
     },
   ];
 

@@ -17,13 +17,6 @@ const signInSchema = yup.object({
 
 const SignInPage: NextPage = () => {
   const router = useRouter();
-  const { user } = useUser();
-
-  useEffect(() => {
-    if (user) {
-      router.push("/");
-    }
-  }, [router, user]);
 
   const [loading, setLoading] = useState<boolean>(false);
   const [pageErrors, setErrors] = useState<string>("");

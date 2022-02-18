@@ -13,6 +13,7 @@ const enforceAuthenticated: (
         props: {},
         redirect: {
           destination: "/auth/signin",
+          permanent: false,
         },
       };
     }

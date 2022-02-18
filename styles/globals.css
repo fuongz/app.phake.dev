@@ -35,6 +35,10 @@ ul {
   @apply relative mt-4;
 }
 
+.input-control--no-padding {
+  @apply mt-0;
+}
+
 .input-control label {
   @apply text-sm font-medium text-gray-400 mb-1 block;
 }

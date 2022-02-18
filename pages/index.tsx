@@ -16,11 +16,11 @@ const Home: NextPage = () => {
   const services = [
     {
       id: "1",
-      name: "Farming",
+      name: "Farm",
       description: "LP Farming",
       status: 1,
       icon: "cil:leaf",
-      to: "/farming",
+      to: "/farm",
       balance: 15000,
       balance_unit: "$",
     },

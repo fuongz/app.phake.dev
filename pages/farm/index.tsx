@@ -1,4 +1,6 @@
 import { NextPage } from "next";
+import Head from "next/head";
+import FarmList from "../../components/farm/FarmList";
 import enforceAuthenticated from "../../lib/enforcedAuthenticated";
 import styles from "../../styles/Farm.module.css";
 
@@ -12,9 +14,12 @@ const FarmHome: NextPage = () => {
 
   const farms: any = [
     {
+      id: 1,
       name: "BNB - BUSD",
+      network: "Moonbeam",
       status: 1,
       startTime: "1/20/2022 11:00:00",
+      apr: "19%",
       base: {
         rate: {
           first: 0.0021,
@@ -45,41 +50,49 @@ const FarmHome: NextPage = () => {
     const profit = currentStaked - initialStaked;
 
     return (
-      <div key={`farm-${index}`} className={styles.farmItem}>
-        <h1>{farm.name}</h1>
-        <p className="flex w-full">
-          Initial staked{" "}
-          <span className="ml-auto">{numberFormat(initialStaked)}</span>
-        </p>
+      <>
+        <div key={`farm-${index}`} className={styles.farmItem}>
+          <h1>{farm.name}</h1>
+          <p className="flex w-full">
+            Initial staked{" "}
+            <span className="ml-auto">{numberFormat(initialStaked)}</span>
+          </p>
 
-        <p className="flex w-full">
-          Current staked{" "}
-          <span className="ml-auto">
-            {numberFormat(currentStaked)} (
-            <span
-              className={`${
-                profit < 0
-                  ? "text-red-700"
-                  : profit > 0
-                  ? "text-green-600"
-                  : "text-gray-700"
-              }`}
-            >
-              {numberFormat(profit)}
+          <p className="flex w-full">
+            Current staked{" "}
+            <span className="ml-auto">
+              {numberFormat(currentStaked)} (
+              <span
+                className={`${
+                  profit < 0
+                    ? "text-red-700"
+                    : profit > 0
+                    ? "text-green-600"
+                    : "text-gray-700"
+                }`}
+              >
+                {numberFormat(profit)}
+              </span>
+              )
             </span>
-            )
-          </span>
-        </p>
-      </div>
+          </p>
+        </div>
+      </>
     );
   });
 
   return (
-    <div className="container mx-auto px-4">
+    <>
+      <Head>
+        <title>Farms - FinPhake</title>
+      </Head>
+
       <main>
-        <div>{farmList}</div>
+        {/* <div>{farmList}</div> */}
+
+        <FarmList farms={farms} />
       </main>
-    </div>
+    </>
   );
 };
 

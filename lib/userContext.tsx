@@ -6,6 +6,7 @@ import {
 } from "@supabase/supabase-js";
 import { useRouter } from "next/router";
 import { createContext, useContext, useEffect, useState } from "react";
+import useSWR from "swr";
 
 export type UserContextType = {
   session: AuthSession | null;
@@ -31,11 +32,27 @@ const updateSupabaseCookie = async (
   });
 };
 
+const fetcher = (url: string, token: string) =>
+  fetch(url, {
+    method: "GET",
+    headers: new Headers({ "Content-Type": "application/json", token }),
+    credentials: "same-origin",
+  }).then((res) => res.json());
+
 export const UserContextProvider = (props: any) => {
   const supabaseClient: SupabaseClient = props.supabaseClient;
   const [session, setSession] = useState<AuthSession | null>(null);
   const [user, setUser] = useState<any | null>(null);
   const router = useRouter();
+
+  const { data, error } = useSWR(
+    session ? ["/api/me", session.access_token] : null,
+    fetcher
+  );
+
+  if (session && error) {
+    supabaseClient.auth.signOut();
+  }
 
   useEffect(() => {
     const session = supabaseClient.auth.session();
@@ -48,14 +65,12 @@ export const UserContextProvider = (props: any) => {
         setUser(session?.user || null);
         await updateSupabaseCookie(_event, session);
 
-        console.log(_event);
-
         if (_event === "PASSWORD_RECOVERY") {
-          router.push("/auth/recover-password");
+          return router.push("/auth/recover-password");
         }
 
         if (_event === "SIGNED_OUT") {
-          router.push("/auth/signin");
+          return router.push("/auth/signin");
         }
       }
     );
