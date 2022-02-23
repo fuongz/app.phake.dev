@@ -1,88 +1,73 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-import { Icon } from "@iconify/react";
 import Link from "next/link";
 import enforceAuthenticated from "../lib/enforcedAuthenticated";
+import styles from "./../styles/Tools.module.css";
 
-const Home: NextPage = () => {
-  const numberFormat = (num: number, currency = "USD") =>
-    new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency,
-      maximumSignificantDigits: 3,
-    }).format(num);
-
-  const services = [
+const ToolsIndexPage: NextPage = () => {
+  const tools: any[] = [
     {
-      id: "1",
-      name: "Farm",
-      description: "LP Farming",
-      status: 1,
-      icon: "cil:leaf",
-      to: "/farm",
-      balance: 15000,
-      balance_unit: "$",
+      name: "Data",
+      description: "Data helpers",
+      items: [
+        {
+          name: "Fetch",
+          description: "Fetch HTML from a URL",
+          url: "/tools/fetch",
+        },
+        {
+          name: "Blog Scraper",
+          description: "Scrape a blog",
+          url: "/tools/blog-scraper",
+        },
+      ],
     },
     {
-      id: "2",
-      name: "Saving",
-      description: "Saving",
-      status: 2,
-      icon: "fluent:savings-20-regular",
-      to: "/saving",
-      balance: 10000,
-      balance_unit: "$",
-    },
-    {
-      id: "3",
-      name: "Banking",
-      description: "Banks transaction tracking",
-      status: 3,
-      icon: "fluent:building-bank-28-regular",
-      to: "/banking",
-      balance: 150000,
-      balance_unit: "$",
+      name: "String",
+      description: "String helpers",
+      items: [
+        {
+          name: "Convert to plain text",
+          description: "Convert HTML to plain text",
+          url: "/tools/convert-to-plain-text",
+        },
+      ],
     },
   ];
 
   return (
     <>
       <Head>
-        <title>Home</title>
+        <title>Apps - Phake.dev</title>
       </Head>
 
-      <section>
-        <h3 className={`font-medium text-2xl`}>Service</h3>
-        <div className={styles["tiles"]}>
-          {services.map((service) => (
-            <article key={service.id} className={styles["tile"]}>
-              <div className={styles["tile-header"]}>
-                <Icon icon={service.icon} className={`text-4xl`} />
-                <h3>
-                  <span>{service.name}</span>
-                  <span>{service.description}</span>
-                </h3>
+      {tools && tools.length
+        ? tools.map((category) => (
+            <div key={category.name}>
+              <h1 className="text-3xl mb-3 font-medium">{category.name}</h1>
+
+              <div className={styles["tools"]}>
+                {category.items && category.items.length > 0
+                  ? category.items.map((tool: any) => (
+                      <Link key={tool.url} href={tool.url}>
+                        <a className={styles["tool"]}>
+                          <span className={styles["tool-name"]}>
+                            {tool.name}
+                          </span>
+                          <span className={styles["tool-description"]}>
+                            {tool.description}
+                          </span>
+                        </a>
+                      </Link>
+                    ))
+                  : "No items."}
               </div>
-              <h2 className={styles["tile-currency"]}>
-                {numberFormat(service.balance)}
-              </h2>
-              <Link href={service.to}>
-                <a>
-                  <span>Go to service</span>
-                </a>
-              </Link>
-            </article>
-          ))}
-        </div>
-        <p className="mt-3 text-gray-500">
-          Services are paid according to the current state of the currency and
-          tariff.
-        </p>
-      </section>
+            </div>
+          ))
+        : "No tools."}
     </>
   );
 };
 
+export default ToolsIndexPage;
 export const getServerSideProps = enforceAuthenticated();
-export default Home;

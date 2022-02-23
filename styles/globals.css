@@ -35,7 +35,8 @@ ul {
   @apply relative mt-4;
 }
 
-.input-control--no-padding {
+.input-control--no-padding,
+.input-control.--no-padding {
   @apply mt-0;
 }
 
@@ -43,12 +44,23 @@ ul {
   @apply text-sm font-medium text-gray-400 mb-1 block;
 }
 
-.input-control input {
+.input-control input,
+.input-control textarea {
   @apply block w-full px-4 py-2 rounded-lg bg-gray-700 leading-tight text-white font-medium border-2 border-transparent;
 }
 
-.input-control input:focus {
+.input-control textarea {
+  @apply font-normal leading-normal;
+}
+
+.input-control input:focus,
+.input-control textarea:focus {
   @apply outline-none border-gray-500;
+}
+
+.input-control textarea:disabled,
+.input-control input:disabled {
+  @apply resize-none;
 }
 
 .input-control .input-feedback {
@@ -63,11 +75,13 @@ ul {
   @apply text-red-500;
 }
 
-.input-control--errors input {
+.input-control--errors input,
+.input-control--errors textarea {
   @apply text-red-500 border-red-500;
 }
 
-.input-control--errors input::placeholder {
+.input-control--errors input::placeholder,
+.input-control--errors textarea::placeholder {
   @apply text-red-500;
 }
 
@@ -143,4 +157,14 @@ ul {
 
 .link:hover {
   @apply underline;
+}
+
+/* 5. Loader */
+.loader {
+  @apply absolute bg-gray-800 bg-opacity-80 top-0 left-0 w-full h-full z-10 flex items-center justify-center;
+}
+
+.loader::after {
+  content: "Loading...";
+  @apply bg-gray-500 px-4 py-2 rounded-lg text-xs bg-opacity-50 text-gray-200;
 }

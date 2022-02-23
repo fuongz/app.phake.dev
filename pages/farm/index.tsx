@@ -2,15 +2,10 @@ import { NextPage } from "next";
 import Head from "next/head";
 import FarmList from "../../components/farm/FarmList";
 import enforceAuthenticated from "../../lib/enforcedAuthenticated";
-import styles from "../../styles/Farm.module.css";
+import { useUser } from "../../lib/userContext";
 
 const FarmHome: NextPage = () => {
-  const numberFormat = (number: number) => {
-    return new Intl.NumberFormat("en-IN", {
-      style: "currency",
-      currency: "USD",
-    }).format(number);
-  };
+  const { user }: any = useUser();
 
   const farms: any = [
     {
@@ -40,57 +35,16 @@ const FarmHome: NextPage = () => {
     },
   ];
 
-  const farmList = farms.map((farm: any, index: number) => {
-    const initialStaked =
-      farm.base.poolSize.first +
-      farm.base.poolSize.second * farm.base.rate.second;
-    const currentStaked =
-      farm.base.poolSize.first +
-      farm.base.poolSize.second * farm.current.rate.second;
-    const profit = currentStaked - initialStaked;
-
-    return (
-      <>
-        <div key={`farm-${index}`} className={styles.farmItem}>
-          <h1>{farm.name}</h1>
-          <p className="flex w-full">
-            Initial staked{" "}
-            <span className="ml-auto">{numberFormat(initialStaked)}</span>
-          </p>
-
-          <p className="flex w-full">
-            Current staked{" "}
-            <span className="ml-auto">
-              {numberFormat(currentStaked)} (
-              <span
-                className={`${
-                  profit < 0
-                    ? "text-red-700"
-                    : profit > 0
-                    ? "text-green-600"
-                    : "text-gray-700"
-                }`}
-              >
-                {numberFormat(profit)}
-              </span>
-              )
-            </span>
-          </p>
-        </div>
-      </>
-    );
-  });
-
   return (
     <>
       <Head>
-        <title>Farms - FinPhake</title>
+        <title>Farms - PhakeApps</title>
       </Head>
 
       <main>
-        {/* <div>{farmList}</div> */}
-
-        <FarmList farms={farms} />
+        {["phuongthephung@gmail.com", "senanarumi0805@gmail.com"].includes(
+          user?.email
+        ) && <FarmList farms={farms} />}
       </main>
     </>
   );

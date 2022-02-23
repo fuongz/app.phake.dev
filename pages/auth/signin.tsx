@@ -1,13 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Provider } from "@supabase/supabase-js";
 import type { NextPage } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase";
-import { useUser } from "../../lib/userContext";
 import * as yup from "yup";
 
 const signInSchema = yup.object({
@@ -71,9 +69,9 @@ const SignInPage: NextPage = () => {
 
   return (
     <div className={"flex pt-44 justify-center items-center"}>
-      <div className={"max-w-sm mx-auto rounded-lg"}>
+      <div className={"max-w-md mx-auto rounded-lg"}>
         <h1 className={`text-3xl font-light mb-2 text-center text-gray-200`}>
-          Welcome to <span className={`font-semibold `}>Fin</span> Phake
+          Welcome to Phake <span className={`font-semibold `}>Super App</span>
         </h1>
 
         <p className={`mb-6 text-sm text-center text-gray-300`}>
