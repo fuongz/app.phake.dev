@@ -3,10 +3,11 @@ import { Provider } from "@supabase/supabase-js";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "../../lib/supabase";
 import * as yup from "yup";
+import { useUser } from "@supabase/supabase-auth-helpers/react";
 
 const signInSchema = yup.object({
   email: yup.string().email().required(),
@@ -27,6 +28,15 @@ const SignInPage: NextPage = () => {
   } = useForm({
     resolver: yupResolver(signInSchema),
   });
+
+  const { user } = useUser();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const handleLogin = async (data: any) => {
     try {
@@ -52,9 +62,14 @@ const SignInPage: NextPage = () => {
   const handleLoginWithProvider = async (provider: Provider) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signIn({
-        provider,
-      });
+      const { error } = await supabase.auth.signIn(
+        {
+          provider,
+        },
+        {
+          redirectTo: "/",
+        }
+      );
       if (error) {
         throw error || new Error("An error occurred. Please try again.");
       }

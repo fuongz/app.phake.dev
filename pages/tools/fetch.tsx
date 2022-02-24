@@ -5,7 +5,7 @@ import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useString } from "../../lib/useString";
-import enforceAuthenticated from "../../lib/enforcedAuthenticated";
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 
 const fetchSchema = yup.object({
   url: yup.string().required(),
@@ -265,4 +265,6 @@ const FetchTool: NextPage = () => {
 
 export default FetchTool;
 
-export const getServerSideProps: GetServerSideProps = enforceAuthenticated();
+export const getServerSideProps = withAuthRequired({
+  redirectTo: "/auth/signin",
+});

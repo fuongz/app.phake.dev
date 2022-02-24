@@ -4,8 +4,8 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Section from "../../components/common/section";
-import enforceAuthenticated from "../../lib/enforcedAuthenticated";
 import * as yup from "yup";
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 
 const pageScraperSchema = yup.object({
   url: yup.string().required(),
@@ -234,4 +234,6 @@ const PageBlogScraper: NextPage = () => {
 };
 
 export default PageBlogScraper;
-export const getServerSideProps = enforceAuthenticated();
+export const getServerSideProps = withAuthRequired({
+  redirectTo: "/auth/signin",
+});

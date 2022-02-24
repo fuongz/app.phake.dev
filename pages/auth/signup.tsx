@@ -113,7 +113,7 @@ const SignupPage: NextPage = () => {
                 <label htmlFor="firstName">First name</label>
                 <input
                   id="firstName"
-                  placeholder="Last name"
+                  placeholder="First name"
                   {...register("firstName")}
                 />
                 {errors.firstName?.type && (

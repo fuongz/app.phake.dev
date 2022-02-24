@@ -1,8 +1,8 @@
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
+import { useUser } from "@supabase/supabase-auth-helpers/react";
 import { NextPage } from "next";
 import Head from "next/head";
 import FarmList from "../../components/farm/FarmList";
-import enforceAuthenticated from "../../lib/enforcedAuthenticated";
-import { useUser } from "../../lib/userContext";
 
 const FarmHome: NextPage = () => {
   const { user }: any = useUser();
@@ -51,4 +51,6 @@ const FarmHome: NextPage = () => {
 };
 
 export default FarmHome;
-export const getServerSideProps = enforceAuthenticated();
+export const getServerSideProps = withAuthRequired({
+  redirectTo: "/auth/signin",
+});

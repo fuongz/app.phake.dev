@@ -79,13 +79,8 @@
 .app-header-user:focus {
   @apply text-gray-100;
 }
-.app-header-user span:first-child {
-  display: flex;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  font-weight: 300;
-}
-.app-header-user span:last-child {
+.app-header-user-avatar {
+  @apply z-10;
   transition: 0.25s ease;
   display: flex;
   justify-content: center;

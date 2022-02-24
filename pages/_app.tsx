@@ -5,8 +5,8 @@ import { useRouter } from "next/router";
 import AppLayout from "../components/layout";
 
 // User Context
-import { UserContextProvider } from "../lib/userContext";
-import { supabase } from "../lib/supabase";
+import { UserProvider } from "@supabase/supabase-auth-helpers/react";
+import { supabaseClient } from "@supabase/supabase-auth-helpers/nextjs";
 import Loading from "../components/loading";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -25,12 +25,12 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [router]);
 
   return (
-    <UserContextProvider supabaseClient={supabase}>
+    <UserProvider supabaseClient={supabaseClient}>
       <Loading loading={loading} />
       <AppLayout>
         <Component {...pageProps} />
       </AppLayout>
-    </UserContextProvider>
+    </UserProvider>
   );
 }
 

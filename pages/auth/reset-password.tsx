@@ -1,9 +1,9 @@
+import { useUser } from "@supabase/supabase-auth-helpers/react";
 import { NextPage } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { supabase } from "../../lib/supabase";
-import { useUser } from "../../lib/userContext";
 
 const ResetPasswordPage: NextPage = () => {
   const [loading, setLoading] = useState<boolean>(false);

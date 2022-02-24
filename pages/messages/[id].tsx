@@ -2,12 +2,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import enforceAuthenticated from "../../lib/enforcedAuthenticated";
 import { useChat, sendMessage } from "../../lib/useChat";
 import * as yup from "yup";
-import { useUser } from "../../lib/userContext";
 import { useEffect, useRef, useState } from "react";
 import styles from "./../../styles/Message.module.css";
+import { useUser } from "@supabase/supabase-auth-helpers/react";
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 
 const MessagePage: NextPage = () => {
   const router = useRouter();
@@ -118,4 +118,6 @@ const MessagePage: NextPage = () => {
 };
 
 export default MessagePage;
-export const getServerSideProps = enforceAuthenticated();
+export const getServerSideProps = withAuthRequired({
+  redirectTo: "/auth/signin",
+});

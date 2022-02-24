@@ -1,7 +1,7 @@
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import enforceAuthenticated from "../lib/enforcedAuthenticated";
 import styles from "./../styles/Tools.module.css";
 
 const ToolsIndexPage: NextPage = () => {
@@ -70,4 +70,6 @@ const ToolsIndexPage: NextPage = () => {
 };
 
 export default ToolsIndexPage;
-export const getServerSideProps = enforceAuthenticated();
+export const getServerSideProps = withAuthRequired({
+  redirectTo: "/auth/signin",
+});

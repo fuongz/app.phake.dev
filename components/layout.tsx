@@ -1,8 +1,10 @@
+import { useUser } from "@supabase/supabase-auth-helpers/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useUser } from "../lib/userContext";
 import styles from "../styles/Layout.module.css";
+import Dropdown from "./common/dropdown";
+import { supabaseClient } from "@supabase/supabase-auth-helpers/nextjs";
 
 type Nav = {
   label: string;
@@ -12,7 +14,7 @@ type Nav = {
 
 const Layout = ({ children }: any) => {
   const router = useRouter();
-  const { user, signOut }: any = useUser();
+  const { user }: any = useUser();
 
   const navs: Nav[] = [
     {
@@ -65,22 +67,32 @@ const Layout = ({ children }: any) => {
             <div className={styles["app-header-actions"]}>
               {user ? (
                 <>
-                  <button className={styles["app-header-user"]}>
-                    <span
-                      onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        signOut();
-                      }}
-                    >
-                      {user.user_metadata.name ||
-                        `${user.user_metadata.firstName} ${user.user_metadata.lastName}`}
-                    </span>
-                    <span>
+                  <div className={styles["app-header-user"]}>
+                    <span className={styles["app-header-user-avatar"]}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src="/icons/almeria-avatar.webp" alt="" />
                     </span>
-                  </button>
+
+                    <Dropdown
+                      label={
+                        user.user_metadata.name ||
+                        `${user.user_metadata.firstName} ${user.user_metadata.lastName}`
+                      }
+                      items={[
+                        {
+                          label: "Your profile",
+                          to: "/auth/profile",
+                        },
+                        {
+                          label: "Sign out",
+                          onClick: () => {
+                            supabaseClient.auth.signOut();
+                            router.push("/auth/signin");
+                          },
+                        },
+                      ]}
+                    />
+                  </div>
                 </>
               ) : (
                 <></>

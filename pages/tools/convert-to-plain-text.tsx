@@ -1,7 +1,7 @@
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import enforceAuthenticated from "../../lib/enforcedAuthenticated";
 import { useString } from "../../lib/useString";
 
 const CopyPlaintext: NextPage = () => {
@@ -88,4 +88,6 @@ const CopyPlaintext: NextPage = () => {
 
 export default CopyPlaintext;
 
-export const getServerSideProps: GetServerSideProps = enforceAuthenticated();
+export const getServerSideProps = withAuthRequired({
+  redirectTo: "/auth/signin",
+});

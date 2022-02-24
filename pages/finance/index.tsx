@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "./../../styles/Home.module.css";
 import { Icon } from "@iconify/react";
 import Link from "next/link";
-import enforceAuthenticated from "../../lib/enforcedAuthenticated";
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 
 const Home: NextPage = () => {
   const numberFormat = (num: number, currency = "USD") =>
@@ -84,5 +84,7 @@ const Home: NextPage = () => {
   );
 };
 
-export const getServerSideProps = enforceAuthenticated();
+export const getServerSideProps = withAuthRequired({
+  redirectTo: "/auth/signin",
+});
 export default Home;
