@@ -29,7 +29,7 @@ const CopyPlaintext: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Copy Plaintext - Tools - Phake.dev</title>
+        <title>Copy Plaintext - Phake.dev</title>
       </Head>
 
       <section>

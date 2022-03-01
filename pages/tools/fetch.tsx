@@ -71,7 +71,7 @@ const FetchTool: NextPage = () => {
     extraQuery();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlainText, nbsp, haveClasses]);
+  }, [isPlainText, nbsp, haveClasses, rawResult]);
 
   const onSubmit = async (data: any) => {
     try {
@@ -110,7 +110,7 @@ const FetchTool: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Fetch - Tools - Phake.dev</title>
+        <title>Fetch - Phake.dev</title>
       </Head>
 
       <section className="relative">
