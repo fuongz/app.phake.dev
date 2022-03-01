@@ -1,13 +1,13 @@
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import AppLayout from "../components/layout";
+import AppLayout from "@/components/layout";
 
 // User Context
-import { UserProvider } from "@supabase/supabase-auth-helpers/react";
-import { supabaseClient } from "@supabase/supabase-auth-helpers/nextjs";
-import Loading from "../components/loading";
+import Loading from "@/components/loading";
+import { UserProvider } from "@/packages/auth";
+import { supabaseClient } from "@/packages/auth";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState<boolean>(false);

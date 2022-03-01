@@ -3,7 +3,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import Section from "../../components/common/section";
+import Section from "@/components/common/section";
 import * as yup from "yup";
 import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 

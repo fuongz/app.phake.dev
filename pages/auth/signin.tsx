@@ -5,9 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { supabase } from "../../lib/supabase";
 import * as yup from "yup";
-import { useUser } from "@supabase/supabase-auth-helpers/react";
+import { useUser } from "@/packages/auth";
+import { supabaseClient } from "@/packages/auth";
 
 const signInSchema = yup.object({
   email: yup.string().email().required(),
@@ -41,7 +41,7 @@ const SignInPage: NextPage = () => {
   const handleLogin = async (data: any) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signIn({
+      const { error } = await supabaseClient.auth.signIn({
         email: data.email,
         password: data.password,
       });
@@ -62,7 +62,7 @@ const SignInPage: NextPage = () => {
   const handleLoginWithProvider = async (provider: Provider) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signIn(
+      const { error } = await supabaseClient.auth.signIn(
         {
           provider,
         },

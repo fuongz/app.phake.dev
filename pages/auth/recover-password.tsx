@@ -2,11 +2,11 @@ import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { supabase } from "../../lib/supabase";
 
 // Form validation
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { supabaseClient } from "@/packages/auth";
 
 const recoverPasswordSchema = yup.object({
   newPassword: yup.string().required(),
@@ -33,7 +33,7 @@ const RecoverPasswordPage: NextPage = () => {
   const onSubmit = async (data: any) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.update({
+      const { error } = await supabaseClient.auth.update({
         password: data.newPassword,
       });
 
@@ -44,7 +44,7 @@ const RecoverPasswordPage: NextPage = () => {
       setErrors("");
       setMessage("Password updated successfully. Please log in.");
       setTimeout(async () => {
-        await supabase.auth.signOut();
+        await supabaseClient.auth.signOut();
         router.push("/auth/signin");
       }, 2000);
     } catch (err: any) {

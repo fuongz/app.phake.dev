@@ -1,6 +1,6 @@
 import Image from "next/image";
 import dayjs from "dayjs";
-import styles from "../../styles/Farm.module.css";
+import styles from "@/styles/Farm.module.css";
 import FarmTd from "./Td";
 
 /* eslint-disable @next/next/no-img-element */

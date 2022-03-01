@@ -1,8 +1,8 @@
 import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { useString } from "../../lib/useString";
+import { useString } from "@/lib/useString";
 
 const CopyPlaintext: NextPage = () => {
   const [plainText, setPlainText] = useState<string>("");

@@ -1,8 +1,8 @@
 import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
-import { useUser } from "@supabase/supabase-auth-helpers/react";
 import { NextPage } from "next";
 import Head from "next/head";
-import FarmList from "../../components/farm/FarmList";
+import { useUser } from "@/packages/auth";
+import FarmList from "@/components/farm/FarmList";
 
 const FarmHome: NextPage = () => {
   const { user }: any = useUser();

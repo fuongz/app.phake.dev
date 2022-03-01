@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import type { GetServerSideProps, NextPage } from "next";
+import type { NextPage } from "next";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-import { useString } from "../../lib/useString";
+import { useString } from "@/lib/useString";
 import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 
 const fetchSchema = yup.object({

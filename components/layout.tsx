@@ -1,10 +1,10 @@
-import { useUser } from "@supabase/supabase-auth-helpers/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import styles from "../styles/Layout.module.css";
-import Dropdown from "./common/dropdown";
-import { supabaseClient } from "@supabase/supabase-auth-helpers/nextjs";
+import styles from "@/styles/Layout.module.css";
+import Dropdown from "@/components/common/dropdown";
+import { useUser } from "@/packages/auth";
+import { supabaseClient } from "@/packages/auth";
 
 type Nav = {
   label: string;

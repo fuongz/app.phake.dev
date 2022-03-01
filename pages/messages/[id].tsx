@@ -2,12 +2,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useChat, sendMessage } from "../../lib/useChat";
+import { useChat, sendMessage } from "@/lib/useChat";
 import * as yup from "yup";
 import { useEffect, useRef, useState } from "react";
-import styles from "./../../styles/Message.module.css";
-import { useUser } from "@supabase/supabase-auth-helpers/react";
+import styles from "@/styles/Message.module.css";
 import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
+import { useUser } from "@/packages/auth";
 
 const MessagePage: NextPage = () => {
   const router = useRouter();

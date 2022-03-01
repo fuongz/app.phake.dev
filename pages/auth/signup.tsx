@@ -5,8 +5,8 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/router";
+import { supabaseClient } from "@/packages/auth";
 
 const schema = yup.object({
   email: yup.string().email().required(),
@@ -37,7 +37,7 @@ const SignupPage: NextPage = () => {
   const handleSignup = async (data: any) => {
     try {
       setLoading(true);
-      const { user, error } = await supabase.auth.signUp(
+      const { user, error } = await supabaseClient.auth.signUp(
         {
           email: data.email,
           password: data.password,

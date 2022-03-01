@@ -1,8 +1,9 @@
-import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import styles from "./../styles/Tools.module.css";
+import styles from "@/styles/Tools.module.css";
+
+import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
 
 const ToolsIndexPage: NextPage = () => {
   const tools: any[] = [
