@@ -1,8 +1,8 @@
-import { supabase } from "./supabase";
+import { supabaseClient } from "@/packages/auth";
 
 export const fetchUser = async (username: string, _callback: any = null) => {
   try {
-    const { body } = await supabase
+    const { body } = await supabaseClient
       .from("users")
       .select("*")
       .eq("id", username)

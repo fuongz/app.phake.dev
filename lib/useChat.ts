@@ -1,5 +1,5 @@
+import { supabaseClient } from "@/packages/auth";
 import { useEffect, useState } from "react";
-import { supabase } from "./supabase";
 
 export const useChat = (props: any) => {
   const [newMessage, handleNewMessage] = useState<any | null>(null);
@@ -19,7 +19,7 @@ export const useChat = (props: any) => {
         await getChannel(
           {
             channelId: props.channelId,
-            userId: supabase.auth.user()?.id,
+            userId: supabaseClient.auth.user()?.id,
           },
           (res: any) => {
             setChannel(res.channel);
@@ -39,7 +39,7 @@ export const useChat = (props: any) => {
   useEffect(() => {
     if (channel) {
       console.log("--- Listening on", channel.id);
-      const messageListener = supabase
+      const messageListener = supabaseClient
         .from(`messages:channel_id=eq.${channel.id}`)
         .on("INSERT", (payload) => handleNewMessage(payload.new))
         .on("DELETE", (payload) => handleDeletedMessage(payload.old))
@@ -75,7 +75,7 @@ export const useChat = (props: any) => {
 
 export const getChannel = async ({ channelId, userId }: any, callback: any) => {
   try {
-    const { body } = await supabase
+    const { body } = await supabaseClient
       .from("channels")
       .select(`*`)
       .eq("slug", channelId)
@@ -99,7 +99,7 @@ export const getChannel = async ({ channelId, userId }: any, callback: any) => {
 
 export const getMessages = async (channelId: string) => {
   try {
-    const { body } = await supabase
+    const { body } = await supabaseClient
       .from("messages")
       .select(`*, author:user_id(*)`)
       .eq("channel_id", channelId)
@@ -124,7 +124,7 @@ export const sendMessage = async (
   userId: string
 ) => {
   try {
-    const { body } = await supabase.from("messages").insert({
+    const { body } = await supabaseClient.from("messages").insert({
       message,
       channel_id: channelId,
       user_id: userId,
@@ -140,7 +140,7 @@ export const sendMessage = async (
 
 export const fetchUser = async (userId: string, _callback: any = null) => {
   try {
-    const { body } = await supabase
+    const { body } = await supabaseClient
       .from("users")
       .select("*")
       .eq("id", userId)
