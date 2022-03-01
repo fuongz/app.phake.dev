@@ -45,7 +45,8 @@ ul {
 }
 
 .input-control input,
-.input-control textarea {
+.input-control textarea,
+.input-control select {
   @apply block w-full px-4 py-2 rounded-lg bg-gray-700 leading-tight text-white font-medium border-2 border-transparent;
 }
 
@@ -131,6 +132,19 @@ ul {
 
 .btn-primary:disabled:hover {
   @apply bg-blue-400;
+}
+
+.btn-success {
+  @apply bg-emerald-500;
+}
+
+.btn-success:hover {
+  @apply bg-emerald-600;
+}
+
+.btn-success:disabled,
+.btn-success:disabled:hover {
+  @apply bg-emerald-400;
 }
 
 .btn.is-loading svg {

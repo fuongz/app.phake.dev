@@ -17,9 +17,9 @@ const ToolsIndexPage: NextPage = () => {
           url: "/tools/fetch",
         },
         {
-          name: "Blog Scraper",
-          description: "Scrape a blog",
-          url: "/tools/blog-scraper",
+          name: "Web Scraper",
+          description: "Scrape a website",
+          url: "/tools/web-scraper",
         },
       ],
     },
