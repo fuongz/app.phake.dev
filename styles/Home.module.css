@@ -8,15 +8,8 @@
 }
 
 .tile {
-  padding: 1rem;
-  border-radius: 8px;
-  min-height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
   transition: 0.25s ease;
-  @apply bg-green-400/20 text-green-400;
+  @apply bg-gray-400/20 text-gray-400 rounded-md relative p-4 flex justify-between flex-col;
 }
 
 .tile:hover {
@@ -28,6 +21,7 @@
   align-items: center;
   justify-content: space-between;
   font-weight: 600;
+  @apply text-gray-100;
 }
 .tile a .icon-button {
   color: inherit;
@@ -45,7 +39,7 @@
   box-shadow: none;
 }
 .tile a:after {
-  content: "";
+  content: '';
   display: block;
   position: absolute;
   top: 0;
@@ -55,14 +49,13 @@
 }
 
 .tile-header {
-  display: flex;
-  align-items: center;
+  @apply flex items-center pb-4;
 }
 .tile-header h3 {
   display: flex;
   flex-direction: column;
   line-height: 1.375;
-  margin-left: 0.5rem;
+  @apply text-gray-100;
 }
 .tile-header h3 span:first-child {
   @apply font-semibold;

@@ -4,34 +4,15 @@
 
 body {
   line-height: 1.5;
-  font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, Segoe UI,
-    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-    sans-serif;
+  font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   @apply antialiased bg-gray-800 text-gray-100;
-}
-
-a {
-  @apply no-underline text-inherit;
-}
-
-*,
-*:before,
-*:after {
-  @apply box-border;
-}
-
-img {
-  @apply block max-w-full;
-}
-
-ul {
-  @apply list-none;
 }
 
 /* Global CSS */
 
 /* 1. Input */
-.input-control {
+.input-control,
+.custom-select__control {
   @apply relative mt-4;
 }
 
@@ -104,7 +85,7 @@ ul {
 
 /* 2. Button */
 .btn {
-  @apply border border-transparent font-semibold px-6 py-1.5 inline-block rounded-lg text-white;
+  @apply px-4 py-2 text-sm font-medium text-white bg-black rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75;
 }
 
 .btn:disabled {
@@ -179,6 +160,25 @@ ul {
 }
 
 .loader::after {
-  content: "Loading...";
+  content: 'Loading...';
   @apply bg-gray-500 px-4 py-2 rounded-lg text-xs bg-opacity-50 text-gray-200;
+}
+
+/* 6. Customize 3rd Lib */
+.custom-select__control {
+  @apply !bg-gray-700 !border-transparent !text-gray-100;
+}
+
+.custom-select__menu {
+  @apply !bg-gray-700;
+}
+
+.custom-select__single-value,
+.custom-select__input {
+  @apply !text-gray-100;
+}
+
+.custom-select__option--is-focused,
+.custom-select__option:hover {
+  @apply !bg-gray-800;
 }

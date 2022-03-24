@@ -1,20 +1,20 @@
-import { withAuthRequired } from "@supabase/supabase-auth-helpers/nextjs";
-import { NextPage } from "next";
-import Head from "next/head";
-import { useUser } from "@/packages/auth";
-import FarmList from "@/components/farm/FarmList";
+import { withAuthRequired } from '@supabase/supabase-auth-helpers/nextjs'
+import { NextPage } from 'next'
+import Head from 'next/head'
+import { useUser } from '@/packages/auth'
+import FarmList from '@/components/farm/FarmList'
 
 const FarmHome: NextPage = () => {
-  const { user }: any = useUser();
+  const { user }: any = useUser()
 
   const farms: any = [
     {
       id: 1,
-      name: "BNB - BUSD",
-      network: "Moonbeam",
+      name: 'BNB - BUSD',
+      network: 'Moonbeam',
       status: 1,
-      startTime: "1/20/2022 11:00:00",
-      apr: "19%",
+      startTime: '1/20/2022 11:00:00',
+      apr: '19%',
       base: {
         rate: {
           first: 0.0021,
@@ -33,7 +33,7 @@ const FarmHome: NextPage = () => {
         },
       },
     },
-  ];
+  ]
 
   return (
     <>
@@ -41,16 +41,9 @@ const FarmHome: NextPage = () => {
         <title>Farms - PhakeApps</title>
       </Head>
 
-      <main>
-        {["phuongthephung@gmail.com", "senanarumi0805@gmail.com"].includes(
-          user?.email
-        ) && <FarmList farms={farms} />}
-      </main>
+      <main>{['phuongthephung@gmail.com', 'senanarumi0805@gmail.com'].includes(user?.email) && <FarmList farms={farms} />}</main>
     </>
-  );
-};
+  )
+}
 
-export default FarmHome;
-export const getServerSideProps = withAuthRequired({
-  redirectTo: "/auth/signin",
-});
+export default FarmHome
