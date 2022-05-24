@@ -3,8 +3,6 @@ import Head from 'next/head'
 import Link from 'next/link'
 import styles from '@/styles/Tools.module.css'
 
-import { withAuthRequired } from '@supabase/supabase-auth-helpers/nextjs'
-
 const ToolsIndexPage: NextPage = () => {
   const tools: any[] = [
     {
@@ -34,6 +32,32 @@ const ToolsIndexPage: NextPage = () => {
         },
       ],
     },
+    {
+      name: 'Encryption',
+      description: 'Encryption helpers',
+      items: [
+        {
+          name: 'Base64 Encode',
+          description: 'Encode Plain data to Base64 numeral system.',
+          url: '/tools/encryption/base64',
+        },
+        {
+          name: 'SHA256 Generator',
+          description: 'Generator Plain data to SHA256 numeral system.',
+          url: '/tools/encryption/sha256',
+        },
+        {
+          name: 'SHA512 Generator',
+          description: 'Generator Plain data to SHA512 numeral system.',
+          url: '/tools/encryption/sha512',
+        },
+        {
+          name: 'MD5 Generator',
+          description: 'Generator Plain data to MD5 numeral system.',
+          url: '/tools/encryption/md5',
+        },
+      ],
+    },
   ]
 
   return (
@@ -45,7 +69,7 @@ const ToolsIndexPage: NextPage = () => {
       {tools && tools.length
         ? tools.map((category) => (
             <div key={category.name}>
-              <h1 className="text-3xl mb-3 font-medium">{category.name}</h1>
+              <h1 className="mb-2 font-semibold">{category.name}</h1>
 
               <div className={styles['tools']}>
                 {category.items && category.items.length > 0

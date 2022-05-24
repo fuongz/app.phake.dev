@@ -5,7 +5,6 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { useString } from '@/lib/useString'
-import { withAuthRequired } from '@supabase/supabase-auth-helpers/nextjs'
 
 const fetchSchema = yup.object({
   url: yup.string().required(),
