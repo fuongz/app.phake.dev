@@ -37,9 +37,24 @@ const ToolsIndexPage: NextPage = () => {
       description: 'Encryption helpers',
       items: [
         {
+          name: 'Password Generator',
+          description: 'Create a secure password using our generator tool.',
+          url: '/tools/encryption/password',
+        },
+        {
+          name: 'Convert file to Base64',
+          description: 'Convert file to Base64 online.',
+          url: '/tools/encryption/base64-file',
+        },
+        {
           name: 'Base64 Encode',
           description: 'Encode Plain data to Base64 numeral system.',
           url: '/tools/encryption/base64',
+        },
+        {
+          name: 'Base64 Decode',
+          description: 'Decode Base64 to plain text.',
+          url: '/tools/encryption/base64-decode',
         },
         {
           name: 'SHA256 Generator',

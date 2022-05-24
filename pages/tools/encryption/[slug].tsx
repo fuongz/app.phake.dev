@@ -12,23 +12,33 @@ const EncryptionPage: NextPage = () => {
   const listHash = [
     {
       key: 'sha256',
-      name: 'SHA256',
+      name: 'SHA256 Generator',
       hash: 'sha256',
     },
     {
       key: 'sha512',
-      name: 'SHA512',
+      name: 'SHA512 Generator',
       hash: 'sha512',
     },
     {
       key: 'md5',
-      name: 'MD5',
+      name: 'MD5 Generator',
       hash: 'md5',
     },
     {
       key: 'base64',
-      name: 'Base64',
+      name: 'Base64 Encode',
       hash: 'base64',
+    },
+    {
+      key: 'base64-decode',
+      name: 'Base64 Decode',
+      hash: 'base64-decode',
+    },
+    {
+      key: 'password',
+      name: 'Strong Password Generator',
+      hash: 'password',
     },
   ]
 
@@ -37,6 +47,8 @@ const EncryptionPage: NextPage = () => {
 
     if (hash.key === 'base64') {
       result = Buffer.from(data).toString('base64')
+    } else if (hash.key === 'base64-decode') {
+      result = Buffer.from(data, 'base64').toString('utf8')
     } else {
       result = crypto.createHash(hash.hash).update(data).digest('hex')
     }
@@ -69,9 +81,7 @@ const EncryptionPage: NextPage = () => {
 
       <main>
         <section className="relative">
-          <h1 className="text-2xl font-semibold mb-4">
-            {hash.name} {hash.key === 'base64' ? 'Encode' : 'Generator'}
-          </h1>
+          <h1 className="text-2xl font-semibold mb-4">{hash.name}</h1>
 
           <div className="grid grid-cols-1 xl:grid-cols-2 gap-4">
             <div className={`input-control --no-padding`}>
