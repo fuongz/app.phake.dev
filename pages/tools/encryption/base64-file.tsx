@@ -47,7 +47,7 @@ const Base64FileEncodePage: NextPage = () => {
           </div>
 
           <button type="submit" className="btn btn-primary mt-4">
-            Generate Password
+            Encode
           </button>
 
           <div className={`input-control !my-8 relative`}>

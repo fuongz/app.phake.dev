@@ -147,7 +147,7 @@ body {
 
 /* 4. Link */
 .link {
-  @apply text-blue-400 cursor-pointer;
+  @apply text-emerald-400 cursor-pointer;
 }
 
 .link:hover {
@@ -181,4 +181,10 @@ body {
 .custom-select__option--is-focused,
 .custom-select__option:hover {
   @apply !bg-gray-800;
+}
+
+@media only screen and (max-width: 640px) {
+  .input-control textarea {
+    max-height: 150px;
+  }
 }

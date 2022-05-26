@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main, NextScript } from "next/document";
+import Document, { Html, Head, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
   render(): JSX.Element {
@@ -16,10 +16,21 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <footer>
+            <div className="container mx-auto px-4 py-8 text-center">
+              <p className="text-gray-500 text-xs">
+                &copy; 2022{' '}
+                <a href="https://github.com/fugon11" target="_blank" rel="noreferrer" className="link">
+                  Fugon11
+                </a>
+                .
+              </p>
+            </div>
+          </footer>
         </body>
       </Html>
-    );
+    )
   }
 }
 
-export default MyDocument;
+export default MyDocument

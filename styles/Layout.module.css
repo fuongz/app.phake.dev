@@ -114,14 +114,6 @@
     @apply border border-gray-600;
   }
 
-  .app-header-navigation {
-    display: none;
-  }
-
-  .app-header-actions {
-    display: none;
-  }
-
   .app-header-mobile {
     display: flex;
   }
@@ -134,11 +126,17 @@
     grid-template-columns: 1fr;
   }
 
-  .app-body > * {
-    margin-bottom: 3.5rem;
-  }
-
   .app-body-navigation {
     display: none;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .app-body {
+    @apply pt-20 px-4;
+  }
+
+  .app-body > * {
+    @apply mb-4;
   }
 }
