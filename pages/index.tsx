@@ -42,6 +42,11 @@ const ToolsIndexPage: NextPage = () => {
           url: '/tools/encryption/password',
         },
         {
+          name: 'Bcrypt',
+          description: 'Hash and compare text string using bcrypt.',
+          url: '/tools/encryption/bcrypt',
+        },
+        {
           name: 'Convert file to Base64',
           description: 'Convert file to Base64 online.',
           url: '/tools/encryption/base64-file',

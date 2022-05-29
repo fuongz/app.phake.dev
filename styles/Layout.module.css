@@ -1,5 +1,16 @@
 .app-header {
-  @apply px-8 fixed w-full top-0 z-10 bg-gray-800;
+  @apply px-8 fixed w-full top-0 z-10 bg-gray-800 border-b border-gray-600;
+}
+
+.app-body {
+  height: 100%;
+  display: grid;
+  padding-top: calc(65px + 2.5rem);
+  @apply container mx-auto;
+}
+
+.app-header-navigation {
+  @apply container mx-auto;
 }
 
 .app-header-actions {
@@ -45,7 +56,7 @@
 }
 
 .tabs {
-  @apply text-gray-500 border-b border-gray-600 flex gap-12 w-full;
+  @apply text-gray-500 flex gap-12 w-full;
 }
 .tabs .tab-link {
   padding-top: 1rem;
@@ -91,13 +102,6 @@
   overflow: hidden;
   margin-left: 1.5rem;
   flex-shrink: 0;
-}
-
-.app-body {
-  height: 100%;
-  display: grid;
-  padding-top: calc(65px + 2.5rem);
-  @apply px-8;
 }
 
 .app-body-navigation {

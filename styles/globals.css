@@ -45,6 +45,10 @@ body {
   @apply resize-none;
 }
 
+.input-control input[type='file'] {
+  @apply placeholder-gray-400;
+}
+
 .input-control .input-feedback {
   @apply text-xs mt-1 text-gray-500;
 }
