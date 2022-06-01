@@ -6,6 +6,17 @@ import styles from '@/styles/Tools.module.css'
 const ToolsIndexPage: NextPage = () => {
   const tools: any[] = [
     {
+      name: 'Minifier',
+      description: 'Minifier',
+      items: [
+        {
+          name: 'CSS Minifier',
+          description: 'CSS Minifier/Compressor.',
+          url: '/tools/minifier/css',
+        },
+      ],
+    },
+    {
       name: 'Data',
       description: 'Data helpers',
       items: [

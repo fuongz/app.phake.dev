@@ -42,7 +42,7 @@ body {
 
 .input-control textarea:disabled,
 .input-control input:disabled {
-  @apply resize-none;
+  @apply resize-none border-gray-400 cursor-text;
 }
 
 .input-control input[type='file'] {
