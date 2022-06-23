@@ -21,6 +21,10 @@ const Layout = ({ children }: any) => {
       to: '/',
       label: 'Home',
     },
+    {
+      to: '/accounting',
+      label: 'Accounting',
+    },
   ]
 
   return (
